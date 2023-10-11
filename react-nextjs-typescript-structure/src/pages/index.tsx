@@ -43,6 +43,8 @@ const Home: React.FC = () => {
  const [loading, setLoading] = useState(true);
   const [baseData, setBaseData] = useState({});
     const [expandedBase, setExpandedBase] = useState(null); // Estado para controlar a div expandida
+    const [campanhasComAviso, setCampanhasComAviso] = useState([]);
+    const [lastUpdate, setLastUpdate] = useState(new Date());
 
 
   useEffect(() => {
@@ -55,10 +57,17 @@ const Home: React.FC = () => {
           const response = await axios.get(`https://3c.fluxoti.com/api/v1/campaigns/${id}/lists?api_token=d0NLCpTnvtsY1gQu7S38RyF47fOjnHknynBjGzWxCwpXOJqXaNwWDrGqFomq`);
           const filteredData = response.data.data.filter((post) => post.weight === 1);
           newData[id] = filteredData;
+        
+        const temPorcentagemMaiorQue90 = filteredData.some((post) => parseFloat(post.completed_percentage) > 90);
+        if (temPorcentagemMaiorQue90) {
+          campanhasComAviso.push(id);
         }
+      }
 
+      setCampanhasComAviso(campanhasComAviso);
         setBaseData(newData);
         setLoading(false);
+        setLastUpdate(new Date());
       } catch (error) {
         console.error('Erro ao buscar os dados:', error);
         setLoading(false);
@@ -66,25 +75,24 @@ const Home: React.FC = () => {
     }
 
     fetchData();
+    const interval = setInterval(fetchData, 5 * 1 * 1000); // Recarrega a cada 60 minutos
+
+    return () => clearInterval(interval); // Limpa o temporizador quando o componente é desmontado   
+
   }, [bases]);
-
-  function renderNameDiv(porcentagem) {
-    const porcentagemNum = parseFloat(porcentagem);
-
-    if (porcentagemNum >= 90 && porcentagemNum <= 99.99) {
-      return <div className="porcentagem-vermelha">{porcentagem}</div>;
-    }
-  }
 
   function renderPorcentagem(porcentagem) {
     const porcentagemNum = parseFloat(porcentagem);
 
     if (porcentagemNum === 100) {
-      return <span className="porcentagem-azul">{porcentagem}</span>;
+      const porcentagemFormatada = porcentagemNum.toFixed(0);
+      return <span className="porcentagem-azul">{porcentagemFormatada}%</span>;
     } else if (porcentagemNum >= 90 && porcentagemNum <= 99.99) {
-      return <span className="porcentagem-vermelha">{porcentagem}</span>;
+      const porcentagemFormatada = porcentagemNum.toFixed(0);
+      return <span className="porcentagem-vermelha">{porcentagemFormatada}%</span>;
     } else {
-      return <span className="porcentagem-verde">{porcentagem}</span>;
+      const porcentagemFormatada = porcentagemNum.toFixed(0);
+      return <span className="porcentagem-verde">{porcentagemFormatada}%</span>;
     }
   }
 
@@ -99,7 +107,7 @@ const Home: React.FC = () => {
 
   return (
     <CardContent>
-    <div>
+    <div className='title'>
       <h1>CAMPANHAS</h1>
       {loading ? (
         <p>Carregando...</p>
@@ -110,18 +118,25 @@ const Home: React.FC = () => {
               key={baseName}
               className={`campaign-card${expandedBase === bases[baseName] ? ' clicked' : ''}`}
               onClick={() => toggleDetails(bases[baseName])}
-            >
-              <div className="base">{baseName}</div>
+              >
+    <div className={`base ${campanhasComAviso.includes(bases[baseName]) ? 'com-aviso' : ''}`}>{baseName}</div>
               {expandedBase === bases[baseName] && (
                 <div className="campaign-percentages">
                   {baseData[bases[baseName]]?.map((post: any) => (
                     <Container key={post.id}>
-                      <div className="percentage-item">
+                     <div
+                          className={`percentage-item ${
+                            parseFloat(post.completed_percentage) > 90
+                            ? 'com-aviso' // Adiciona uma classe "com-aviso" se a porcentagem for maior que 90
+                            : ''
+                          }`}
+                          >
                         <h3>{post.name}</h3>
                         <p>{post.created_at}</p>
                         <h3 className={`porcentagem-${post.completed_percentage === '100.00' ? 'verde' : 'vermelha'}`}>
                        {renderPorcentagem((post.completed_percentage))}
                         </h3>
+                        <p>Última atualização: {lastUpdate.toLocaleTimeString()}</p>
                       </div>
                     </Container>
                   ))}
@@ -131,7 +146,7 @@ const Home: React.FC = () => {
           ))}
         </div>
       )}
-    </div>
+      </div>
   </CardContent>
   );
 };
