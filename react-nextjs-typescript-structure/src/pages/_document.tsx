@@ -48,7 +48,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
 
-          <link rel="icon" href="https://rocketseat.com.br/favicon.ico" />
+          <link rel="icon" href="https://github.com/MarcosT-800/ResetPassword/blob/main/reset-password/public/logoph.png?raw=true" />
         </Head>
         <body>
           <Main />

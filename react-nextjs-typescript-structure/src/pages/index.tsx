@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, CardContent } from '../styles/pages/Home';
 
+
 const Home: React.FC = () => {
   const [bases] = useState({
     'G - FGTS': '29870',
@@ -40,11 +41,11 @@ const Home: React.FC = () => {
     'G - 50 + VENDIDOS MARGEM ONLINE': '33263',
   });
 
- const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [baseData, setBaseData] = useState({});
-    const [expandedBase, setExpandedBase] = useState(null); // Estado para controlar a div expandida
-    const [campanhasComAviso, setCampanhasComAviso] = useState([]);
-    const [lastUpdate, setLastUpdate] = useState(new Date());
+  const [expandedBase, setExpandedBase] = useState(null); // Estado para controlar a div expandida
+  const [campanhasComAviso, setCampanhasComAviso] = useState([]);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
 
 
   useEffect(() => {
@@ -57,14 +58,14 @@ const Home: React.FC = () => {
           const response = await axios.get(`https://3c.fluxoti.com/api/v1/campaigns/${id}/lists?api_token=d0NLCpTnvtsY1gQu7S38RyF47fOjnHknynBjGzWxCwpXOJqXaNwWDrGqFomq`);
           const filteredData = response.data.data.filter((post) => post.weight === 1);
           newData[id] = filteredData;
-        
-        const temPorcentagemMaiorQue90 = filteredData.some((post) => parseFloat(post.completed_percentage) > 90);
-        if (temPorcentagemMaiorQue90) {
-          campanhasComAviso.push(id);
-        }
-      }
 
-      setCampanhasComAviso(campanhasComAviso);
+          const temPorcentagemMaiorQue90 = filteredData.some((post) => parseFloat(post.completed_percentage) > 90);
+          if (temPorcentagemMaiorQue90) {
+            campanhasComAviso.push(id);
+          }
+        }
+
+        setCampanhasComAviso(campanhasComAviso);
         setBaseData(newData);
         setLoading(false);
         setLastUpdate(new Date());
@@ -107,47 +108,52 @@ const Home: React.FC = () => {
 
   return (
     <CardContent>
-    <div className='title'>
-      <h1>CAMPANHAS</h1>
-      {loading ? (
-        <p>Carregando...</p>
-      ) : (
-        <div className='principalContent'>
-          {Object.keys(bases).map((baseName) => (
-            <div
-              key={baseName}
-              className={`campaign-card${expandedBase === bases[baseName] ? ' clicked' : ''}`}
-              onClick={() => toggleDetails(bases[baseName])}
+      <div className='title'>
+      <img src="https://github.com/MarcosT-800/ResetPassword/blob/main/reset-password/public/logoph.png?raw=true" alt="PH Negócios Plataforma" className="logo" />
+        <ul className="nav-links">
+          <li><a href="/">Bases</a></li>
+          <li className="center"><a href="#">Graficos</a></li>
+          <li className="upward"><a href="#">Adicionar</a></li>
+          <li className="forward"><a href="#">Update</a></li>
+        </ul>
+        {loading ? (
+          <p>Carregando...</p>
+        ) : (
+          <div className='principalContent'>
+            {Object.keys(bases).map((baseName) => (
+              <div
+                key={baseName}
+                className={`campaign-card${expandedBase === bases[baseName] ? ' clicked' : ''}`}
+                onClick={() => toggleDetails(bases[baseName])}
               >
-    <div className={`base ${campanhasComAviso.includes(bases[baseName]) ? 'com-aviso' : ''}`}>{baseName}</div>
-              {expandedBase === bases[baseName] && (
-                <div className="campaign-percentages">
-                  {baseData[bases[baseName]]?.map((post: any) => (
-                    <Container key={post.id}>
-                     <div
-                          className={`percentage-item ${
-                            parseFloat(post.completed_percentage) > 90
-                            ? 'com-aviso' // Adiciona uma classe "com-aviso" se a porcentagem for maior que 90
-                            : ''
-                          }`}
-                          >
-                        <h3>{post.name}</h3>
-                        <p>{post.created_at}</p>
-                        <h3 className={`porcentagem-${post.completed_percentage === '100.00' ? 'verde' : 'vermelha'}`}>
-                       {renderPorcentagem((post.completed_percentage))}
-                        </h3>
-                        <p>Última atualização: {lastUpdate.toLocaleTimeString()}</p>
-                      </div>
-                    </Container>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+                <div className={`base ${campanhasComAviso.includes(bases[baseName]) ? 'com-aviso' : ''}`}>{baseName}</div>
+                {expandedBase === bases[baseName] && (
+                  <div className="campaign-percentages">
+                    {baseData[bases[baseName]]?.map((post: any) => (
+                      <Container key={post.id}>
+                        <div
+                          className={`percentage-item ${parseFloat(post.completed_percentage) > 90
+                              ? 'com-aviso' // Adiciona uma classe "com-aviso" se a porcentagem for maior que 90
+                              : ''
+                            }`}
+                        >
+                          <h3>{post.name}</h3>
+                          <p>{post.created_at}</p>
+                          <h3 className={`porcentagem-${post.completed_percentage === '100.00' ? 'verde' : 'vermelha'}`}>
+                            {renderPorcentagem((post.completed_percentage))}
+                          </h3>
+                          <p>Última atualização: {lastUpdate.toLocaleTimeString()}</p>
+                        </div>
+                      </Container>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-  </CardContent>
+    </CardContent>
   );
 };
 

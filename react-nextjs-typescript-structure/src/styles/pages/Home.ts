@@ -1,18 +1,30 @@
-import styled from "styled-components";
+import styled, { keyframes } from 'styled-components';
+
+const backgroundAnimation = keyframes`
+  0% {
+    background-color: #ff0000; /* Vermelho */
+  }
+  50% {
+    background-color: #e60000; /* Vermelho mais escuro */
+  }
+  100% {
+    background-color: #ff0000; /* Voltar para vermelho */
+  }
+`;
 
 export const Container = styled.div`
 
 `;
 
 export const CardContent = styled.div`
-
 .principalContent {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  background: linear-gradient(271deg, #ff2a2a, #a32626);
 }
 .campaign-card {
-  background-color: #fff;
+  background: #fff;
   border: 1px solid #ccc;
   margin: 10px;
   padding: 20px;
@@ -31,7 +43,7 @@ export const CardContent = styled.div`
 }
 
 .campaign-card.clicked {
-  background-color: #f5f5f6;
+  background-color: white;
 }
 
 .base {
@@ -68,53 +80,11 @@ export const CardContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 3%;
+  background: linear-gradient(271deg, #ff2a2a, #a32626);
 }
 
 h1 {
   margin-bottom: 3%;
-}
-
-h1 {
-  animation-duration: 3s;
-  animation-name: slidein;
-}
-
-@keyframes slidein {
-  from {
-    margin-left: 100%;
-    width: 100%;
-  }
-
-  to {
-    margin-left: 0%;
-    width: 30%;
-  }
-}
-
-.title h1 { 
-	display:inline-block; 
-	font-family:'open_sansregular';  
-	color: #CC0000; 
-	margin-top:0; 
-	margin-bottom: 3%;
-}
-.title h1::after {
-    content:'';
-    display: block;
-    position: relative;
-    top: 5px;
-    width: 100%;
-    height: 5px;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    background-image: -webkit-linear-gradient(left,#00d8e0 0,#028085 100%);
-    background-image: -o-linear-gradient(left,#00d8e0 0,#028085 100%);
-    background-image: linear-gradient(to right,#00d8e0 0,#028085 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00d8e0', endColorstr='#028085', GradientType=1);
 }
 
 .percentage-item h3 {
@@ -136,4 +106,73 @@ h1 {
   color: green;
   font-weight: bold;
 }
+
+.nav-links{
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 20px 15px;
+  border-radius: 12px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+.nav-links li{
+  list-style: none;
+  margin: 0 12px;
+}
+.nav-links li a{
+  position: relative;
+  color: #333;
+  font-size: 25px;
+  font-family:'open_sansregular';  
+  font-weight: 500;
+  padding: 6px 0;
+  text-decoration: none;
+}
+.nav-links li a:before{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: red;
+  border-radius: 12px;
+  transition: all 0.4s ease;
+}
+.nav-links li a:hover:before{
+  width: 100%;
+}
+.nav-links li.center a:before{
+  left: 50%;
+  transform: translateX(-50%);
+}
+.nav-links li.upward a:before{
+  width: 100%;
+  bottom: -5px;
+  opacity: 0;
+}
+.nav-links li.upward a:hover:before{
+  bottom: 0px;
+  opacity: 1;
+}
+.nav-links li.forward a:before{
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+.nav-links li.forward a:hover:before{
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.logo {
+  width: 120px;
+  height: 120px;
+  margin-top: 3%;
+}
+
+
 `
