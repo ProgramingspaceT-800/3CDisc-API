@@ -21,8 +21,12 @@ export const CardContent = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background: linear-gradient(271deg, #ff2a2a, #a32626);
+  background-image: url('https://web.whatsapp.com/c6f3eaf3-2fc8-4358-9887-25ccfe76b866'); /* Caminho para a imagem de fundo */
+  background-size: cover; /* Ajusta o tamanho da imagem ao contêiner */
+  background-position: center; /* Centraliza a imagem no contêiner */
+  background-repeat: no-repeat; /* Impede que a imagem seja repetida */
 }
+
 .campaign-card {
   background: #fff;
   border: 1px solid #ccc;

@@ -109,7 +109,7 @@ const Home: React.FC = () => {
   return (
     <CardContent>
       <div className='title'>
-      <img src="https://github.com/MarcosT-800/ResetPassword/blob/main/reset-password/public/logoph.png?raw=true" alt="PH Negócios Plataforma" className="logo" />
+      <img src="/logo plataforma.png" alt="PH Negócios Plataforma" className="logo" />
         <ul className="nav-links">
           <li><a href="/">Bases</a></li>
           <li className="center"><a href="#">Graficos</a></li>
