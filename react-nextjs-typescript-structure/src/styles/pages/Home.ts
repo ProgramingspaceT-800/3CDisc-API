@@ -1,16 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import theme from '../theme';
 
-const backgroundAnimation = keyframes`
-  0% {
-    background-color: #ff0000; /* Vermelho */
-  }
-  50% {
-    background-color: #e60000; /* Vermelho mais escuro */
-  }
-  100% {
-    background-color: #ff0000; /* Voltar para vermelho */
-  }
-`;
 
 export const Container = styled.div`
 
@@ -18,17 +8,18 @@ export const Container = styled.div`
 
 export const CardContent = styled.div`
 .principalContent {
+  align-items: center;
+  justify-content: center;
+  background: ${theme.colors.background};  
+}
+
+.Cardsalign {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background-image: url('https://web.whatsapp.com/c6f3eaf3-2fc8-4358-9887-25ccfe76b866'); /* Caminho para a imagem de fundo */
-  background-size: cover; /* Ajusta o tamanho da imagem ao contêiner */
-  background-position: center; /* Centraliza a imagem no contêiner */
-  background-repeat: no-repeat; /* Impede que a imagem seja repetida */
 }
 
 .campaign-card {
-  background: #fff;
   border: 1px solid #ccc;
   margin: 10px;
   padding: 20px;
@@ -36,19 +27,43 @@ export const CardContent = styled.div`
   margin-bottom: 20px;
   gap: 20px;
   border-radius: 5px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
-  justify-content: center;
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1); 
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.base {
+  font-size: 8em;
+	color: white;
+  font-weight: bold;
+}
+
+h3 { 
+  color: white;
+}
+
+p {
+  color: white;
 }
 
 .campaign-card:hover {
   transform: scale(1.05);
   cursor: pointer;
+  box-shadow: 0 0 8px #fd0018, 0 0 35px #fd0018, 0 0 60px #fd0018;
 }
 
 .campaign-card.clicked {
-  background-color: white;
+  background: rgba(255, 255, 255, 0.1); 
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
 }
+
 
 .base {
   font-size: 20px;
@@ -83,8 +98,7 @@ export const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background: linear-gradient(271deg, #ff2a2a, #a32626);
+  justify-content: center; 
 }
 
 h1 {
@@ -97,7 +111,11 @@ h1 {
 }
 
 .com-aviso {
-  border: 2px solid red; /* ou qualquer estilo que você deseja para o aviso */
+  width: 15px; /* Defina o tamanho desejado para a bolinha */
+  height: 15px; /* Defina o tamanho desejado para a bolinha */
+  background-color: #fd0018; /* Cor vermelha */
+  border-radius: 50%; /* Transforma em uma bolinha */
+  box-shadow: 0 0 8px #fd0018, 0 0 35px #fd0018, 0 0 60px #fd0018; /* Efeito de sombra vermelha */}
 }
 
 /* Estilos para porcentagens */
@@ -111,8 +129,15 @@ h1 {
   font-weight: bold;
 }
 
+nav {
+  display: flex;
+  justify-content: center;
+}
+
 .nav-links{
   display: flex;
+  justify-content: center;
+  width: 53%;
   align-items: center;
   background: #fff;
   padding: 20px 15px;
@@ -121,16 +146,21 @@ h1 {
   margin-top: 3%;
   margin-bottom: 3%;
 }
+
+.nav-links:hover {
+  box-shadow: 0 0 8px #fd0018, 0 0 35px #fd0018, 0 0 60px #fd0018;
+}
+
 .nav-links li{
   list-style: none;
   margin: 0 12px;
 }
 .nav-links li a{
   position: relative;
-  color: #333;
+  color: black;
   font-size: 25px;
   font-family:'open_sansregular';  
-  font-weight: 500;
+  font-weight: bold;
   padding: 6px 0;
   text-decoration: none;
 }
@@ -173,9 +203,13 @@ h1 {
 }
 
 .logo {
-  width: 120px;
-  height: 120px;
-  margin-top: 3%;
+  display: flex;
+  max-width: 1000px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 

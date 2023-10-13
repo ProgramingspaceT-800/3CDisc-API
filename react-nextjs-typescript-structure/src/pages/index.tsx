@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, CardContent } from '../styles/pages/Home';
-
+import logoPlataforma from '../assets/logo plataforma.png';
+import background from '../assets/background.jpeg'
 
 const Home: React.FC = () => {
   const [bases] = useState({
@@ -108,18 +109,23 @@ const Home: React.FC = () => {
 
   return (
     <CardContent>
-      <div className='title'>
-      <img src="/logo plataforma.png" alt="PH Negócios Plataforma" className="logo" />
-        <ul className="nav-links">
-          <li><a href="/">Bases</a></li>
-          <li className="center"><a href="#">Graficos</a></li>
-          <li className="upward"><a href="#">Adicionar</a></li>
-          <li className="forward"><a href="#">Update</a></li>
-        </ul>
+      <div className='principalContent'>
+        <div className="logo">
+        <img src={logoPlataforma} alt="PH Negócios Plataforma" style={{ width: '400px', height: 'auto', alignItems: 'center'}} />
+        </div>
+        <nav>
+
+          <ul className="nav-links">
+            <li><a href="/">Bases</a></li>
+            <li className="center"><a href="#">Graficos</a></li>
+            <li className="upward"><a href="#">Adicionar</a></li>
+            <li className="forward"><a href="#">Update</a></li>
+          </ul>
+          </nav>
         {loading ? (
           <p>Carregando...</p>
-        ) : (
-          <div className='principalContent'>
+          ) : (
+          <div className='Cardsalign'>
             {Object.keys(bases).map((baseName) => (
               <div
                 key={baseName}
@@ -133,8 +139,8 @@ const Home: React.FC = () => {
                       <Container key={post.id}>
                         <div
                           className={`percentage-item ${parseFloat(post.completed_percentage) > 90
-                              ? 'com-aviso' // Adiciona uma classe "com-aviso" se a porcentagem for maior que 90
-                              : ''
+                            ? 'com-aviso' // Adiciona uma classe "com-aviso" se a porcentagem for maior que 90
+                            : ''
                             }`}
                         >
                           <h3>{post.name}</h3>
