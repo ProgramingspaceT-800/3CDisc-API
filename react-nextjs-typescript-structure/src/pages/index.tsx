@@ -111,7 +111,7 @@ const Home: React.FC = () => {
     <CardContent>
       <div className='principalContent'>
         <div className="logo">
-        <img src={logoPlataforma} alt="PH Negócios Plataforma" style={{ width: '400px', height: 'auto', alignItems: 'center'}} />
+          <img src={logoPlataforma} alt="PH Negócios Plataforma" style={{ width: '400px', height: 'auto', marginTop: '5%', marginBottom: '3%' }} />
         </div>
         <nav>
 
@@ -121,10 +121,10 @@ const Home: React.FC = () => {
             <li className="upward"><a href="#">Adicionar</a></li>
             <li className="forward"><a href="#">Update</a></li>
           </ul>
-          </nav>
+        </nav>
         {loading ? (
           <p>Carregando...</p>
-          ) : (
+        ) : (
           <div className='Cardsalign'>
             {Object.keys(bases).map((baseName) => (
               <div
@@ -132,13 +132,13 @@ const Home: React.FC = () => {
                 className={`campaign-card${expandedBase === bases[baseName] ? ' clicked' : ''}`}
                 onClick={() => toggleDetails(bases[baseName])}
               >
-                <div className={`base ${campanhasComAviso.includes(bases[baseName]) ? 'com-aviso' : ''}`}>{baseName}</div>
+  <div className={`base ${parseFloat(baseData[bases[baseName]][0].completed_percentage) >= 90 ? 'com-aviso' : ''}`}>{baseName}</div>
                 {expandedBase === bases[baseName] && (
                   <div className="campaign-percentages">
                     {baseData[bases[baseName]]?.map((post: any) => (
                       <Container key={post.id}>
                         <div
-                          className={`percentage-item ${parseFloat(post.completed_percentage) > 90
+                          className={`percentage-item ${parseFloat(post.completed_percentage) >= 90
                             ? 'com-aviso' // Adiciona uma classe "com-aviso" se a porcentagem for maior que 90
                             : ''
                             }`}

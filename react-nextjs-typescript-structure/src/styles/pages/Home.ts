@@ -8,6 +8,8 @@ export const Container = styled.div`
 
 export const CardContent = styled.div`
 .principalContent {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: ${theme.colors.background};  
@@ -37,7 +39,7 @@ export const CardContent = styled.div`
 }
 
 .base {
-  font-size: 8em;
+  font-size: 20px;
 	color: white;
   font-weight: bold;
 }
@@ -62,12 +64,6 @@ p {
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     border-left: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-
-.base {
-  font-size: 20px;
-  margin-bottom: 10px;
 }
 
 /* Estilo dos detalhes de campanha expandidos */
@@ -111,11 +107,8 @@ h1 {
 }
 
 .com-aviso {
-  width: 15px; /* Defina o tamanho desejado para a bolinha */
-  height: 15px; /* Defina o tamanho desejado para a bolinha */
-  background-color: #fd0018; /* Cor vermelha */
-  border-radius: 50%; /* Transforma em uma bolinha */
-  box-shadow: 0 0 8px #fd0018, 0 0 35px #fd0018, 0 0 60px #fd0018; /* Efeito de sombra vermelha */}
+  border: 2px solid red;
+  box-shadow: 0 0 1px #fd0018, 0 0 15px #fd0018, 0 0 30px #fd0018; /* Efeito de sombra vermelha */}
 }
 
 /* Estilos para porcentagens */
@@ -132,12 +125,13 @@ h1 {
 nav {
   display: flex;
   justify-content: center;
+    width: 100%;
 }
 
 .nav-links{
   display: flex;
   justify-content: center;
-  width: 53%;
+  width: 50%;
   align-items: center;
   background: #fff;
   padding: 20px 15px;
@@ -204,9 +198,8 @@ nav {
 
 .logo {
   display: flex;
-  max-width: 1000px;
   max-height: 150px;
-  width: auto;
+  width: 100%;
   height: auto;
   justify-content: center;
   align-items: center;
